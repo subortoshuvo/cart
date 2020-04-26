@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>Shopping Cart</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+   <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+   <section>
+      <div class="container">
+         <div class="cart" id="cart">
+            <div class="col-md-12 col-lg-10 mx-auto">
+
+               <div class="cart-item" id="card-1" style="display: block;">
+
+                  <div class="row">
+                     <div class="col-md-7 center-item">
+                        <img src="images/product-1.png" alt="">
+                        <h5>iPhone 11 128GB Black</h5>
+                     </div>
+
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="btnMinus" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="value" type="text" class="form-control text-center" value="1">
+                           <button id="btnPlus" class="btn btn-default plus"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <h5>$<span id="sumMbl">1260</span></h5>
+                        <img id="del1" src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+
+               </div>
+
+               <div  class="cart-item" id="card-2" style="display: block;">
+                  <div class="row">
+                     <div class="col-md-7 center-item mx-auto">
+                        <img src="images/product-2.png" alt="">
+                        <h5>iPhone 11 Silicone Case - Black</h5>
+                     </div>
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="minus" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input  id="value1" type="text" class="form-control text-center" value="1">
+                           <button id="plus" class="btn btn-default"><i class="fas fa-plus"></i></button>
+
+                        </div>
+                        <h5>$<span id="mblCase">59</span></h5>
+                        <img id="del2" src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+               <div class="cart-item" id="card-3">
+                  <div class="row">
+                     <div class="col-md-7 center-item m-auto text-center">
+                         <h2 class="text-center m-auto">Cart is Empty</h2>
+                  </div>
+               </div>
+            </div>
+           
+               <div class="cart-item">
+                  <div class="row">
+
+                     <div class="col-md-8">
+                        <h5>Subtotal:  </h5>
+                        <h5>Tax:</h5>
+                        <h5>Total:</h5>
+                     </div>
+
+                     <div class="col-md-4 status">
+                        <h5>$  <span id="total">1329</span>   </h5>
+                        <h5>$10</h5>
+                        <h5>$<span id="grandTotal">1329</span>  </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-12 pt-4 pb-4">
+                  <button type="button" class="btn btn-success check-out">Check Out</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+   <script>
+      const plusBtn = document.getElementById('btnPlus');
+         plusBtn.addEventListener("click",function(){
+          var  getValueById = valueByField("value");
+          var  setFieldValue =  document.getElementById("value").value = increaseOne(getValueById);
+ 
+              var sum =    sumForMobile(setFieldValue);
+               totalSum(sum);
+               grandTotal();
+        
+               
+         });
+     
+           const minusBtn = document.getElementById('btnMinus');
+             minusBtn.addEventListener("click",function(){
+             getValueById = valueByField("value");
+             setFieldValue = document.getElementById("value").value = decreaseOne(getParseNumber);
+             if(setFieldValue<1){
+               setFieldValue = document.getElementById("value").value = 1;
+            }
+            sum =   subtractForMobile(setFieldValue);
+            totalSum(sum);
+            grandTotal();
+      });
+       
+        const plus = document.getElementById('plus');
+          plus.addEventListener("click",function(){
+          getValueById = valueByField("value1");
+          setFieldValue =  document.getElementById("value1").value = increaseOne(getValueById);
+          sum = sumForMobileCase(setFieldValue);
+          totalSum(sum);
+          grandTotal();
+      
+         });
+     
+           const minus = document.getElementById('minus');
+            minus.addEventListener("click",function(){
+             getValueById = valueByField("value1");
+             setFieldValue = document.getElementById("value1").value = decreaseOne(getParseNumber);
+             if(setFieldValue<1){
+               setFieldValue = document.getElementById("value1").value = 1;
+            }
+           sum =  subtractForMobileCase(setFieldValue);
+            totalSum(sum);
+            grandTotal();
+      });
+     
+       
+      const deleteIItem1 = document.getElementById("del1");
+      deleteIItem1.addEventListener("click",function(){
+          del = document.getElementById("card-1");
+          if(confirm("Remove cart item")==true){
+           // del.parentNode.removeChild( del );
+           dele1 =   del.style.display = "none";
+         
+          }
+      });
+       
+      const deleteIItem2 = document.getElementById("del2");
+      deleteIItem2.addEventListener("click",function(){
+          del1 = document.getElementById("card-2");
+          if(confirm("Remove cart item")==true){
+            del1.parentNode.removeChild(del1);
+          }
+      });
+
+
+      var element = document.getElementById("element-id");
+      
+
+
+      function valueByField(id){
+          var getValueById = document.getElementById(id);
+          var getFieldValue = getValueById.value;
+          return  getParseNumber = parseNumber(getFieldValue);
+         
+      }
+
+
+
+      function parseNumber(num){
+          var parse = parseFloat(num);
+          return parse;
+      }
+      function increaseOne(value){
+         return  increaseValue = value +1;
+      }
+      function decreaseOne(value){
+         return decreaseValue = value -1;
+        
+      }
+      
+       function sumForMobile(num){
+           var sumForMobileField = document.getElementById('sumMbl').innerText;
+           var   sumForMobileFieldParse = parseNumber(sumForMobileField);
+           return  document.getElementById('sumMbl').innerText = sumForMobileFieldParse + 1260;
+           
+      
+       }
+     
+       function subtractForMobile(num){
+            if(num<=1){
+               document.getElementById('sumMbl').innerText = 1260; 
+            }
+            else{
+               var subtractForMobileField = document.getElementById('sumMbl').innerText;
+             subtractForMobileFieldParse = parseNumber(subtractForMobileField);
+          return   document.getElementById('sumMbl').innerText = subtractForMobileFieldParse - 1260; 
+            }
+           
+     
+       
+       }
+       function sumForMobileCase(num){
+           var sumForMobileCaseField = document.getElementById('mblCase').innerText;
+           var   sumForMobileFieldCaseParse = parseNumber(sumForMobileCaseField);
+           return   document.getElementById('mblCase').innerText = sumForMobileFieldCaseParse + 59;
+             
+       }
+
+       function subtractForMobileCase(num){
+            if(num<=1){
+             return  document.getElementById('mblCase').innerText = 59; 
+            }
+            else{
+               var subtractForMobileFieldCase = document.getElementById('mblCase').innerText;
+              var subtractForMobileFieldParseCase = parseNumber(subtractForMobileFieldCase);
+            return  document.getElementById('mblCase').innerText = subtractForMobileFieldParseCase - 59; 
+            }
+     
+       
+       }
+ 
+       function totalSum(){
+        
+         var mobile = document.getElementById('sumMbl').innerText;
+         var mobilParse = parseNumber(mobile);
+         var mobileCase = document.getElementById('mblCase').innerText;
+         var mobilParseCase = parseNumber(mobileCase);
+         document.getElementById('total').innerText =   mobilParse + mobilParseCase;
+       }
+       
+
+       function grandTotal(){
+         var mobile = document.getElementById('sumMbl').innerText;
+         var mobilParse = parseNumber(mobile);
+         var mobileCase = document.getElementById('mblCase').innerText;
+         var mobilParseCase = parseNumber(mobileCase);
+         document.getElementById('grandTotal').innerText =   mobilParse + mobilParseCase +10;
+       }
+      
+     if(document.getElementById("card-1")==="none" && document.getElementById("card-2")==="none"){
+        document.getElementById("card-3").style.display = "block";
+     }
+ 
+   </script> 
+ 
+   
+
+</body>
+
+</html>
